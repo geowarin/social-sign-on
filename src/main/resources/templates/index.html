@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html   xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorator="layout/default">
+<head>
+    <title>Login</title>
+</head>
+<body>
+<div class="section no-pad-bot" layout:fragment="content">
+    <div class="container">
+
+        <h1 class="header center orange-text">Login</h1>
+
+        <div class="row">
+            <div th:text="${#authentication.name}">
+                The value of the "name" property of the authentication object should appear here.
+            </div>
+
+            <div sec:authorize="hasRole('ROLE_ADMIN')">
+                This will only be displayed if authenticated user has role ROLE_ADMIN.
+            </div>
+        </div>
+
+        <form th:action="@{/signin/twitter}" method="POST">
+            <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+
+            <div class="row">
+                <button class="btn" type="submit">Connect with Twitter
+                    <i class="mdi-social-group-add left"></i>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>
